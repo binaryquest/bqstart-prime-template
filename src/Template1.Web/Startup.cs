@@ -1,26 +1,12 @@
-using BinaryQuest.Framework.Core;
-using BinaryQuest.Framework.Core.Model;
-using BinaryQuest.Framework.Core.Security;
-using Microsoft.AspNetCore.OData;
-using Microsoft.AspNetCore.OData.Extensions;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OData.Edm;
-using Template1.Data;
-//using Template1.Web.Controllers;
-using Serilog;
-using System;
-using TimeZoneConverter;
 using BinaryQuest.Framework.Core.Extensions;
+using BinaryQuest.Framework.Core.Security;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.OData;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Template1.Data;
+using TimeZoneConverter;
 
 namespace Template1.Web
 {
@@ -32,10 +18,14 @@ namespace Template1.Web
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
+        /// <summary>
+        /// Configure all required Services here
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            #region Standard Services
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
 
             services.AddDbContext<MainDataContext>(options =>
@@ -49,35 +39,31 @@ namespace Template1.Web
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, MainDataContext>()
                 .AddProfileService<ProfileService<ApplicationUser>>();
+            #endregion
 
             services.AddAuthentication()
                 .AddIdentityServerJwt().AddGoogle(options =>
                 {
-                    //IConfigurationSection googleAuthNSection =
-                    //    Configuration.GetSection("Authentication:Google");
-
-                    options.ClientId = "sdfsdf";//googleAuthNSection["ClientId"];
-                    options.ClientSecret = "sdfsdf";// googleAuthNSection["ClientSecret"];
+                    //TODO: if you want to have Google Authentication you need to supply the following
+                    //values
+                    options.ClientId = "<>";
+                    options.ClientSecret = "<>";
                 });
 
-            //services.AddControllersWithViews().AddNewtonsoftJson();            
-
+            //---------------------------------------------------------------------------------------------
             //BQ Admin related
+            //---------------------------------------------------------------------------------------------
             services.AddBqAdminServices<ApplicationUser, MainDataContext>(options =>
-                options.SetApplicationName("PDCL MIS")
+                options.SetApplicationName("Template1 bqStart")
+                //allow open user registrations
                 .SetAllowUserRegistration(false)
-                .SetDefaultTimeZone(TZConvert.GetTimeZoneInfo("Asia/Dhaka"))
-                .SetDefaultLanguage("en_US")
+                //change default timezone
+                .SetDefaultTimeZone(TZConvert.GetTimeZoneInfo("Australia/Sydney"))
+                //change default language
+                .SetDefaultLanguage("en_AU")
                 .SetSecurityRulesProvider(new FileBasedSecurityRulesProvider("config"))
-                //.RegisterController<Customer, CustomerController>()
-                //.RegisterController<Patient, PatientController>()
-                //.RegisterController<Product, ProductController>()
-                //.RegisterController<Order, OrderController>()
-                //.RegisterController<OrderLine, OrderLineController>()
-                //.RegisterController<ConsultantDepartment, ConsultantDepartmentController>()
-                //.RegisterController<Consultant, ConsultantController>()
-                //.RegisterController<Appointment, AppointmentController>()
-                //.RegisterController<AppointmentStatus, AppointmentStatusController>()
+                //register all OData controllers here
+                //.RegisterController<Customer, CustomerController>()                
                 );
             
 
@@ -89,8 +75,13 @@ namespace Template1.Web
                 configuration.RootPath = "ClientApp/dist";
             });
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        /// <param name="loggerFactory"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             var logger = loggerFactory.CreateLogger("Startup");
@@ -115,8 +106,10 @@ namespace Template1.Web
                 app.UseSpaStaticFiles();
             }
 
-            //load all middlewares we need from the framework
-            //and register the endpoints we will need for data
+            //---------------------------------------------------------------------------------------------
+            // Load all middlewares we need from the framework
+            // and register the endpoints we will need for data
+            //---------------------------------------------------------------------------------------------
             app.UseBQAdmin<MainDataContext>().Build();
 
             app.UseSpa(spa =>
@@ -126,13 +119,13 @@ namespace Template1.Web
                 if (env.IsDevelopment())
                 {
                     //---------------------------------------------------------------------------------------------
-                    //Enable this line if you want to run ng serve command from a console seperate while developing
+                    // Enable this line if you want to run ng serve command from a console seperate while developing
                     //---------------------------------------------------------------------------------------------
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                     //---------------------------------------------------------------------------------------------
-
+                    // OR
                     //---------------------------------------------------------------------------------------------
-                    //Enable this line if you want to run ng serve inside visual studio debuggers
+                    // Enable this line if you want to run ng serve inside visual studio debuggers
                     //---------------------------------------------------------------------------------------------
                     //spa.UseAngularCliServer(npmScript: "ng serve");
                     //---------------------------------------------------------------------------------------------

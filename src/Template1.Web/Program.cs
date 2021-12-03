@@ -14,6 +14,11 @@ namespace Template1.Web
             .AddEnvironmentVariables()
             .Build();
 
+        /// <summary>
+        /// Main entry point
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static async Task Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()

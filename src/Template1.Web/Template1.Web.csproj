@@ -7,11 +7,13 @@
 		<SpaRoot>ClientApp\</SpaRoot>
 		<DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
 		<UserSecretsId>a1272bb4-b089-40be-ad48-c16af3e8f75b</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BinaryQuest.Framework.Core" Version="1.0.0" />
+		<PackageReference Include="BinaryQuest.Framework.Core" Version="1.12.13" />
 		<PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.0" />
@@ -32,13 +34,25 @@
 
 	<ItemGroup>
 		<!-- Don't publish the SPA source files, but do show them in the project files list -->
+		<Compile Remove="ClientApp\.vscode\**" />
 		<Content Remove="$(SpaRoot)**" />
+		<Content Remove="ClientApp\.vscode\**" />
+		<EmbeddedResource Remove="ClientApp\.vscode\**" />
 		<None Remove="$(SpaRoot)**" />
+		<None Remove="ClientApp\.vscode\**" />
 		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="ClientApp\.vscode\settings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Template1.Data\Template1.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Controllers\" />
 	</ItemGroup>
 
 	<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
