@@ -7,17 +7,17 @@
 		<EnableDefaultItems>false</EnableDefaultItems>
 		<NoDefaultExcludes>true</NoDefaultExcludes>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<PackageOutputPath>.</PackageOutputPath>
+		<PackageOutputPath>.</PackageOutputPath>		
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="src\**\*" Exclude="**\bin\**\*;**\obj\**\*" />
+		<Content Include="src\**\*" Exclude="**\bin\**\*;**\obj\**\*;**\node_modules\*" />
 		<Compile Remove="**\*" />
 	</ItemGroup>
 
 	<PropertyGroup>
 		<PackageType>Template</PackageType>
-		<Version>1.12.14</Version>
+		<Version>1.12.14.2</Version>
 		<PackageId>BQStartPrimeTemplate</PackageId>
 		<Title>bqStart Prime Template</Title>
 		<Company>Binary Quest Software Pty Ltd</Company>

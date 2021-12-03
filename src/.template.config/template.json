@@ -34,7 +34,17 @@
 			"parameters": {
 				"format": "N"
 			}
-		}		
+		},
+		"defaultLogin": {
+			"type": "parameter",
+			"defaultValue": "info@binaryquest.com",
+			"replaces":"info@binaryquest.com"
+		},
+		"defaultPassword": {
+			"type": "parameter",
+			"defaultValue": "BqStart#123456",
+			"replaces":"BqStart#123456"
+		}
 	},
 	"sources": [
 		{
