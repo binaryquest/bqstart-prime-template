@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Template1.Data;
+using Template1.Web.Controllers;
 using TimeZoneConverter;
 
 namespace Template1.Web
@@ -58,11 +59,13 @@ namespace Template1.Web
                 //allow open user registrations
                 .SetAllowUserRegistration(false)
                 //change default timezone
-                .SetDefaultTimeZone(TZConvert.GetTimeZoneInfo("Australia/Sydney"))
+                .SetDefaultTimeZone(TZConvert.GetTimeZoneInfo("UTC"))
                 //change default language
                 .SetDefaultLanguage("en_AU")
                 .SetSecurityRulesProvider(new FileBasedSecurityRulesProvider("config"))
                 //register all OData controllers here
+                .RegisterController<IdentityRole, IdentityRoleController>()
+                .RegisterController<ApplicationUser, ApplicationUserController>()
                 //.RegisterController<Customer, CustomerController>()                
                 );
             
@@ -72,7 +75,7 @@ namespace Template1.Web
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                configuration.RootPath = "wwwroot";
             });
         }
         

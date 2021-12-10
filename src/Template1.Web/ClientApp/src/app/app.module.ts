@@ -12,6 +12,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 
 import { AppComponent } from './app.component';
+import { RoleList, RoleForm } from './adminUI/roles/roles';
+import { UserList, UserForm } from './adminUI/users/users';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 
@@ -25,6 +27,10 @@ registerLocaleData(localeAU);
 @NgModule({
   declarations: [
     AppComponent,
+    RoleList,
+    RoleForm,
+    UserList,
+    UserForm,
     HomeComponent,
     CounterComponent
   ],

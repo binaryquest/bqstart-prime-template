@@ -26,7 +26,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "angular-auth-oidc-client": "^12.0.2",
-    "bq-start-prime": "^1.12.11",
+    "bq-start-prime": "^1.12.25",
     "core-js": "^3.16.1",
     "lodash-es": "^4.17.21",
     "moment": "^2.29.1",
