@@ -19,5 +19,7 @@ namespace Template1.Data
         {
             base.OnModelCreating(builder);
         }
+
+        public DbSet<DemoCustomer> DemoCustomers => Set<DemoCustomer>();
     }
 }

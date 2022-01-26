@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template1.Data", "Template1.Data\Template1.Data.csproj", "{1776F316-D0D4-4943-830A-163A8746EC33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template1.Data", "Template1.Data\Template1.Data.csproj", "{1776F316-D0D4-4943-830A-163A8746EC33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template1.Web", "Template1.Web\Template1.Web.csproj", "{994EFABC-E1A8-49D7-B317-397078F7AB43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template1.Web", "Template1.Web\Template1.Web.csproj", "{994EFABC-E1A8-49D7-B317-397078F7AB43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

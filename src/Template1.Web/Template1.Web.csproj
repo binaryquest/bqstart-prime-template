@@ -12,7 +12,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BinaryQuest.Framework.Core" Version="1.12.22" />
+		<PackageReference Include="BinaryQuest.Framework.Core" Version="1.16.3" />
+		<PackageReference Include="BinaryQuest.Framework.Identity.UI" Version="1.16.3" />
 		<PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.0" />
@@ -43,11 +44,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="ClientApp\.vscode\settings.json" />
+		<None Remove="ClientApp\.vscode\settings.json" />
+		<None Remove="Logs\log-20220126.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Template1.Data\Template1.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="ClientApp\dist\" />
+		<Folder Include="Logs\" />
 	</ItemGroup>
 
 	<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

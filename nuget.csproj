@@ -17,7 +17,7 @@
 
 	<PropertyGroup>
 		<PackageType>Template</PackageType>
-		<Version>1.13.3.1</Version>
+		<Version>1.16.3</Version>
 		<PackageId>BQStartPrimeTemplate</PackageId>
 		<Title>bqStart Prime Template</Title>
 		<Company>Binary Quest Software Pty Ltd</Company>

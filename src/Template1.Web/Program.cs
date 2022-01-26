@@ -1,6 +1,14 @@
 using BinaryQuest.Framework.Core.Interface;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 using Template1.Data;
 
 namespace Template1.Web

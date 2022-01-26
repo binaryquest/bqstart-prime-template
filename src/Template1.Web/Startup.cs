@@ -1,12 +1,15 @@
 using BinaryQuest.Framework.Core.Extensions;
 using BinaryQuest.Framework.Core.Security;
+using BinaryQuest.Framework.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Template1.Data;
 using Template1.Web.Controllers;
+using Template1.Web.Services;
 using TimeZoneConverter;
 
 namespace Template1.Web
@@ -33,23 +36,58 @@ namespace Template1.Web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentityWithBQUI<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MainDataContext>();
 
+            //*********************************
+            //Sample CORS Configuration
+            //services.AddSingleton<ICorsPolicyService>((container) =>
+            //{
+            //    var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
+            //    return new DefaultCorsPolicyService(logger)
+            //    {
+            //        AllowedOrigins = { "app://localhost" }
+            //    };
+            //});
+            services.AddCors(opt =>
+            {
+                opt.AddDefaultPolicy(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
+            //*********************************
+
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, MainDataContext>()
+                .AddApiAuthorization<ApplicationUser, MainDataContext>(opt => {
+
+                    //*********************************
+                    //Sample API Client for Bq-Electron App
+                    //*********************************
+                    //var nativeClient = ClientBuilder
+                    //    .NativeApp("electronapp")
+                    //    .WithRedirectUri("app://localhost/authentication/login-callback")
+                    //    .WithRedirectUri("https://oauth.pstmn.io/v1/callback")
+                    //    .WithLogoutRedirectUri("app://localhost/authentication/logout-callback")
+                    //    .WithScopes("openid profile bqStart.WebAPI offline_access")
+                    //    .Build();
+
+                    //nativeClient.AllowedCorsOrigins = new[]
+                    //{
+                    //"app://localhost"
+                    //};
+
+                    //opt.Clients.Add(nativeClient);
+                })
                 .AddProfileService<ProfileService<ApplicationUser>>();
             #endregion
 
             services.AddAuthentication()
-                .AddIdentityServerJwt().AddGoogle(options =>
-                {
-                    //TODO: if you want to have Google Authentication you need to supply the following
-                    //values
-                    options.ClientId = "<>";
-                    options.ClientSecret = "<>";
-                });
+                .AddIdentityServerJwt()
+                //.AddGoogle(options =>
+                //{                    
+                //    options.ClientId = Configuration["ExternalProviders:OAuth:GoogleClientId"];
+                //    options.ClientSecret = Configuration["ExternalProviders:OAuth:GoogleSecret"];
+                //})
+                ;
 
             //---------------------------------------------------------------------------------------------
             //BQ Admin related
@@ -66,7 +104,7 @@ namespace Template1.Web
                 //register all OData controllers here
                 .RegisterController<IdentityRole, IdentityRoleController>()
                 .RegisterController<ApplicationUser, ApplicationUserController>()
-                //.RegisterController<Customer, CustomerController>()                
+                .RegisterController<DemoCustomer, DemoCustomerController>()
                 );
             
 
@@ -77,6 +115,10 @@ namespace Template1.Web
             {
                 configuration.RootPath = "wwwroot";
             });
+
+            //Setup email sending services here
+            services.Configure<EmailSenderOptions>(options => Configuration.GetSection("ExternalProviders:SMTP").Bind(options));
+            services.AddTransient<IEmailSender, EmailSender>();
         }
         
         /// <summary>
@@ -110,6 +152,13 @@ namespace Template1.Web
             }
 
             //---------------------------------------------------------------------------------------------
+            //If CORS needs to be allowed, do it
+            //before BQAdmin pipeline
+            //---------------------------------------------------------------------------------------------
+            app.UseCors();
+            //---------------------------------------------------------------------------------------------
+
+            //---------------------------------------------------------------------------------------------
             // Load all middlewares we need from the framework
             // and register the endpoints we will need for data
             //---------------------------------------------------------------------------------------------
@@ -122,7 +171,7 @@ namespace Template1.Web
                 if (env.IsDevelopment())
                 {
                     //---------------------------------------------------------------------------------------------
-                    // Enable this line if you want to run ng serve command from a console seperate while developing
+                    // Enable this line if you want to run ng serve command from a console separate while developing
                     //---------------------------------------------------------------------------------------------
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                     //---------------------------------------------------------------------------------------------

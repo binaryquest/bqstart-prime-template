@@ -20,6 +20,8 @@ import { CounterComponent } from './counter/counter.component';
 import { BQStartPrimeModule, AuthorizeGuard, AuthorizeInterceptor, LocaleProvider } from 'bq-start-prime';
 import { APP_CONFIG } from './app.config';
 import localeAU from '@angular/common/locales/en-AU';
+import { DemoCustomerListComponent } from './demo/demo-customer-list';
+import { DemoCustomerFormComponent } from './demo/demo-customer-form';
 
 //register all locale data here
 registerLocaleData(localeAU);
@@ -32,7 +34,9 @@ registerLocaleData(localeAU);
     UserList,
     UserForm,
     HomeComponent,
-    CounterComponent
+    CounterComponent,
+    DemoCustomerListComponent,
+    DemoCustomerFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -48,7 +52,7 @@ registerLocaleData(localeAU);
     //general components roures
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizeGuard] },
-      { path: 'counter', component: CounterComponent },
+      { path: 'counter', component: CounterComponent, canActivate: [AuthorizeGuard] },
     ]
     )
   ],
