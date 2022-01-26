@@ -1,0 +1,110 @@
+{
+	"BQ List View Inline": {
+    "prefix": "bqlist-inline",
+    "body": [
+      "import { Component, OnInit } from '@angular/core';",
+      "import { BaseListView, RouterService } from 'bq-start-prime';",
+      "import { $1 } from './$2';",
+      "",
+      "@Component({",
+      "  selector: 'app-$2-list',",
+      "  template: `",
+      "<bq-table [model]='models'",
+      "          [metaData]='metaData'",
+      "          [tableParams]='tableParams'",
+      "          (loadTableData)='onRefreshData()'",
+      "          [resizableColumns]='true'",
+      "          [loading]='isLoading'",
+      "          [showGrid]='true'",
+      "          [showStripedGrid]='true'",
+      "          [showAddButton]=\"showAddButton\">",
+      "",
+      "</bq-table>",
+      "`,",
+      "  styles: []",
+      "})",
+      "",
+      "export class $1ListComponent extends BaseListView<$1> {",
+      "  constructor(protected routerSvc: RouterService) {",
+      "    super(routerSvc, {});",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "BQ List View Inline"
+  },
+  "BQ Table Column": {
+    "prefix": "bqcol",
+    "body": [
+      "<bq-table-column [field]='metaData.fields.$1'></bq-table-column>"
+    ],
+    "description": "BQ Table Column"
+  },
+  "BQ List Config": {
+    "prefix": "bqlist-config",
+    "body": [
+      "{",
+      "  viewId: \"$1\",",
+      "  typeName: \"$2\",",
+      "  title: \"$2\",",
+      "  viewType: ViewType.List,",
+      "  component: $2ListComponent",
+      "},",
+      ""
+    ],
+    "description": "BQ List View"
+  },
+  "BQ Form Config": {
+    "prefix": "bqform-config",
+    "body": [
+      "{",
+      "   viewId: \"$1\",",
+      "   typeName: \"$2\",",
+      "   title: \"$2\",",
+      "   viewType: ViewType.Form,",
+      "   component: $2FormComponent",
+      "},"
+    ],
+    "description": "BQ Form Config"
+  },
+  "BQ Form View": {
+    "prefix": "bqform-inline",
+    "body": [
+      "import { Component, OnInit } from '@angular/core';",
+      "import { BaseFormView, RouterService } from 'bq-start-prime';",
+      "import { $1 } from './$2';",
+      "",
+      "@Component({",
+      "  selector: 'app-$2-form',",
+      "  template: `",
+      "<bq-form>",
+      "",
+      "</bq-form>",
+      "`,",
+      "  styles: []",
+      "})",
+      "",
+      "export class $1FormComponent extends BaseFormView<$1> {",
+      "  constructor(protected routerSvc: RouterService) {",
+      "    super(routerSvc, {});",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "BQ Form View"
+  },
+  "BQ Text Field": {
+    "prefix": "bqtext",
+    "body": [
+      "<bq-text-field [field]=\"metaData.fields.$1\" [(model)]=\"model.$1\"></bq-text-field>"
+    ],
+    "description": "BQ Text Field"
+  },
+  "BQ Dropdown Field": {
+    "prefix": "bqdrop",
+    "body": [
+      "<bq-dropdown-field [field]=\"metaData.fields.$1\" [(model)]=\"model.$1\" [itemSource]=\"lookupDataModel.$2\" displayName=\"name\" valueName=\"id\"></bq-dropdown-field>"
+    ],
+    "description": "BQ Dropdown Field"
+  }
+}
