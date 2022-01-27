@@ -42,8 +42,8 @@
 		},
 		"defaultPassword": {
 			"type": "parameter",
-			"defaultValue": "BqStart#123456",
-			"replaces":"BqStart#123456"
+			"defaultValue": "Bq@123456",
+			"replaces": "Bq@123456"
 		}
 	},
 	"sources": [

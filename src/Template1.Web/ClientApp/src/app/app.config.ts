@@ -68,6 +68,12 @@ export const APP_CONFIG: BQConfigData = {
       component: DemoCustomerListComponent,
       hideBreadCrumb: false
     },
-    DemoCustomerFormComponent.ViewDef
+    {
+      viewId: "democustomer-form",
+      typeName: "DemoCustomer",
+      title: "Demo Customer",
+      viewType: ViewType.Form,
+      component: DemoCustomerFormComponent
+    }
   ]
 }

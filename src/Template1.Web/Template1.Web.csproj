@@ -35,11 +35,15 @@
 	<ItemGroup>
 		<!-- Don't publish the SPA source files, but do show them in the project files list -->
 		<Compile Remove="ClientApp\.vscode\**" />
+		<Compile Remove="ClientApp\dist\**" />
 		<Content Remove="$(SpaRoot)**" />
 		<Content Remove="ClientApp\.vscode\**" />
+		<Content Remove="ClientApp\dist\**" />
 		<EmbeddedResource Remove="ClientApp\.vscode\**" />
+		<EmbeddedResource Remove="ClientApp\dist\**" />
 		<None Remove="$(SpaRoot)**" />
 		<None Remove="ClientApp\.vscode\**" />
+		<None Remove="ClientApp\dist\**" />
 		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
 	</ItemGroup>
 
@@ -53,7 +57,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="ClientApp\dist\" />
 		<Folder Include="Logs\" />
 	</ItemGroup>
 

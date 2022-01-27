@@ -12,17 +12,7 @@ import { DemoCustomer } from './demo-customer';
   styles: []
 })
 
-export class DemoCustomerFormComponent extends BaseFormView<DemoCustomer> {
-
-  static get ViewDef(){
-    return {
-      viewId: "democustomer-form",
-      typeName: "DemoCustomer",
-      title: "Demo Customer",
-      viewType: ViewType.Form,
-      component: DemoCustomerFormComponent
-    }
-  }
+export class DemoCustomerFormComponent extends BaseFormView<DemoCustomer> {  
   constructor(protected routerSvc: RouterService) {
     super(routerSvc, {});
   }

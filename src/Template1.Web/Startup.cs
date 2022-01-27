@@ -40,6 +40,7 @@ namespace Template1.Web
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MainDataContext>();
 
+            #region CORS Configure
             //*********************************
             //Sample CORS Configuration
             //services.AddSingleton<ICorsPolicyService>((container) =>
@@ -50,11 +51,12 @@ namespace Template1.Web
             //        AllowedOrigins = { "app://localhost" }
             //    };
             //});
-            services.AddCors(opt =>
-            {
-                opt.AddDefaultPolicy(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            });
+            //services.AddCors(opt =>
+            //{
+            //    opt.AddDefaultPolicy(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            //});
             //*********************************
+            #endregion
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, MainDataContext>(opt => {
@@ -155,7 +157,7 @@ namespace Template1.Web
             //If CORS needs to be allowed, do it
             //before BQAdmin pipeline
             //---------------------------------------------------------------------------------------------
-            app.UseCors();
+            //app.UseCors();
             //---------------------------------------------------------------------------------------------
 
             //---------------------------------------------------------------------------------------------
