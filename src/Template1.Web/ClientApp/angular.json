@@ -34,6 +34,7 @@
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/saga-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.scss",
               "node_modules/bq-start-prime/src/lib/styles/bq-start-prime.scss",
               "src/styles.scss"
             ],
@@ -114,5 +115,7 @@
       }
     }
   },
-  "defaultProject": "ClientApp"
+  "cli": {
+    "analytics": false
+  }
 }
