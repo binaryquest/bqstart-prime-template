@@ -42,8 +42,7 @@ namespace Template1.Web
 
             using (var scope = host.Services.CreateScope())
             {
-                var services = scope.ServiceProvider;
-                Console.WriteLine(services.GetService<IConfiguration>().GetConnectionString("DefaultConnection"));
+                var services = scope.ServiceProvider;                
                 try
                 {
                     var context = services.GetRequiredService<MainDataContext>();

@@ -1,6 +1,6 @@
 # bqstart-prime-template
 
-[bqStart](https://bqstart.com) ASP.NET Core + Angular based Jump Start Project Template
+[bqStart](https://bqstart.com) ASP.NET Core + Angular 16 based Jump Start Project Template
 
 
 ## Install Template
