@@ -35,11 +35,11 @@ namespace Template1.Data
             }
         }
 
-        public static async Task<ApplicationUser> CreateDefaultUser(IApplicationService applicationService, UserManager<ApplicationUser> userManager, ILogger<ApplicationDbInitializer> logger, string email, string defaultPassword, string defaultRole)
+        public static async Task<ApplicationUser?> CreateDefaultUser(IApplicationService applicationService, UserManager<ApplicationUser> userManager, ILogger<ApplicationDbInitializer> logger, string email, string defaultPassword, string defaultRole)
         {
             logger.LogInformation("Create default user with email `{email}` for application", email);
 
-            ApplicationUser createdUser = await userManager.FindByEmailAsync(email);
+            ApplicationUser? createdUser = await userManager.FindByEmailAsync(email);
             if (createdUser != null)
             {
                 return createdUser;
@@ -86,7 +86,7 @@ namespace Template1.Data
             var defaultLogin = configuration["defaultLoginEmail"] ?? "info@binaryquest.com";
             var defaultRole = configuration["defaultAdminRole"] ?? "Admin";
             await CreateRole(roleManager, dbInitializerLogger, defaultRole);
-            await CreateDefaultUser(applicationService, userManager, dbInitializerLogger, defaultLogin, defaultPassword, defaultRole);
+            await CreateDefaultUser(applicationService, userManager, dbInitializerLogger, defaultLogin, defaultPassword!, defaultRole);
 
         }
     }
